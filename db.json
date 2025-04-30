@@ -1,0 +1,60 @@
+{
+  "backlog": {
+    "tareas": [
+      {
+        "id": "Tue Apr 01 2025",
+        "titulo": "Crear modal",
+        "descripcion": "Crear modal crear tareas",
+        "fechaLimite": "2025-04-13",
+        "estado": null
+      },
+      {
+        "id": "Fri Apr 11 2025",
+        "titulo": "Agregar alerta",
+        "descripcion": "Agregar alerta con sweetalert",
+        "fechaLimite": "2025-04-14",
+        "estado": null
+      }
+    ]
+  },
+  "sprintList": {
+    "sprints": [
+      {
+        "id": "3",
+        "nombre": "Sprint 1",
+        "fechaInicio": "2025-04-30",
+        "fechaFin": "2025-05-08",
+        "tareas": []
+      },
+      {
+        "id": "4",
+        "nombre": "Sprint 2",
+        "fechaInicio": "2025-04-25",
+        "fechaFin": "2025-04-27",
+        "tareas": [
+          {
+            "id": "1745499609461-kmf0q",
+            "titulo": "Modificar rutas",
+            "descripcion": "Las rutas deben ser modificadas ",
+            "fechaLimite": "2025-04-25",
+            "estado": "completado"
+          },
+          {
+            "id": "1745535094353-ohsvn",
+            "titulo": "Enviar formulario",
+            "descripcion": "Crear el botón para enviar formulario",
+            "fechaLimite": "2025-04-26",
+            "estado": "completado"
+          },
+          {
+            "titulo": "TAREA NUEVA",
+            "descripcion": "Descripcion ",
+            "fechaLimite": "2025-05-01",
+            "estado": "porHacer",
+            "id": "1745981016434-53upx"
+          }
+        ]
+      }
+    ]
+  }
+}
