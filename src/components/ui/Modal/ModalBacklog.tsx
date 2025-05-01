@@ -11,6 +11,7 @@ type IModal = {
 }
 
 const initialState: ITarea = {
+    id: "", 
     titulo: "",
     descripcion: "",
     fechaLimite: "",
@@ -54,6 +55,7 @@ export const ModalBacklog: FC<IModal> = ({ handleCloseModal, onSave }) => {
             if (perteneceASprint) {
                 editarTareaDeSprint(formValues);
             } else {
+                console.log(formValues)
                 putTareaEditar(formValues); 
             }
         } else {

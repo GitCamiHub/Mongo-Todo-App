@@ -44,12 +44,19 @@ export const useTareas = () => {
   };
 
   const putTareaEditar = async (tareaEditada: ITarea) => {
-    const estadoPrevio = tareas.find((el) => el.id === tareaEditada.id);
+
+    if (!tareaEditada._id) {
+      console.error("Error: tareaEditada no tiene ID.");
+      return;
+    }
+  
+    const estadoPrevio = tareas.find((el) => el._id === tareaEditada._id);
     editarUnaTarea(tareaEditada);
 
     console.log("Tareas antes de la actualización:", tareas);
 
     try {
+      console.log(tareaEditada)
       await editarTarea(tareaEditada);
 
     } catch (error) {
@@ -60,7 +67,7 @@ export const useTareas = () => {
 
   const eliminarTarea = async (idTarea: string) => {
     const { sprintActivo, setSprintActivo } = sprintStore.getState();
-    const perteneceASprint = sprintActivo?.tareas?.some((t) => t.id === idTarea);
+    const perteneceASprint = sprintActivo?.tareas?.some((t) => t._id === idTarea);
 
     const confirm = await Swal.fire({
       title: "¿Estás seguro?",
@@ -76,7 +83,7 @@ export const useTareas = () => {
     if (!confirm.isConfirmed) return;
 
     if (perteneceASprint && sprintActivo) {
-      const tareasActualizadas = sprintActivo.tareas?.filter((t) => t.id !== idTarea) || [];
+      const tareasActualizadas = sprintActivo.tareas?.filter((t) => t._id !== idTarea) || [];
       const sprintActualizado = { ...sprintActivo, tareas: tareasActualizadas };
 
       try {
@@ -88,7 +95,7 @@ export const useTareas = () => {
         Swal.fire("Error", "No se pudo eliminar la tarea del sprint", "error");
       }
     } else {
-      const estadoPrevio = tareas.find((el) => el.id === idTarea);
+      const estadoPrevio = tareas.find((el) => el._id === idTarea);
       eliminarUnaTarea(idTarea);
 
       try {
@@ -102,7 +109,7 @@ export const useTareas = () => {
   };
 
   const verTarea = (idTarea: string) => {
-    const tarea = tareas.find((tarea) => tarea.id === idTarea);
+    const tarea = tareas.find((tarea) => tarea._id === idTarea);
 
     if (!tarea) {
       Swal.fire({
@@ -183,7 +190,7 @@ export const useTareas = () => {
     const tareaEditada = { ...tarea, estado: nuevoEstado };
 
     const sprintActivo = sprintStore.getState().sprintActivo;
-    const perteneceASprint = sprintActivo?.tareas?.some(t => t.id === tarea.id);
+    const perteneceASprint = sprintActivo?.tareas?.some(t => t._id === tarea._id);
 
     if (perteneceASprint) {
       await editarTareaDeSprint(tareaEditada);

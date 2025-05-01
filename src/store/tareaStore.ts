@@ -24,19 +24,23 @@ export const tareaStore = create<ITareaStore>((set) => ({
       backlog: { tareas: [...state.backlog.tareas, nuevaTarea] },
     })),
 
-  editarUnaTarea: (tareaActualizada) =>
+  editarUnaTarea: (tareaActualizada) => {
     set((state) => ({
       backlog: {
-        tareas: state.backlog.tareas.map((tarea) =>
-          tarea.id === tareaActualizada.id ? { ...tarea, ...tareaActualizada } : tarea
-        ),
+        tareas: state.backlog.tareas.map((tarea) => {
+          if (tarea._id === tareaActualizada._id) {
+            return { ...tarea, ...tareaActualizada };
+          }
+          return tarea;
+        }),
       },
-    })),
+    }));
+  },
 
   eliminarUnaTarea: (idTarea) =>
     set((state) => ({
       backlog: {
-        tareas: state.backlog.tareas.filter((tarea) => tarea.id !== idTarea),
+        tareas: state.backlog.tareas.filter((tarea) => tarea._id !== idTarea),
       },
     })),
 
