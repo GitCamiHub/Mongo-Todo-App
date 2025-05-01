@@ -5,14 +5,15 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 export const getAllTareas = async () => {
   try {
-    const res = await axios.get<{ tareas: ITarea[] }>(`${API_URL}/backlog`);
+    const res = await axios.get(`${API_URL}/backlog`);
     return res.data.tareas;
+    // return res.data[0]?.tareas || [];
   } catch (error) {
     console.log(error);
   }
 };
 
-export const postNuevaTarea = async (nuevaTarea: ITarea) => {
+/*export const postNuevaTarea = async (nuevaTarea: ITarea) => {
   try {
 
     const resBacklog = await axios.get(`${API_URL}/backlog`);
@@ -29,9 +30,24 @@ export const postNuevaTarea = async (nuevaTarea: ITarea) => {
     console.error("Error al postear nueva tarea:", error);
     return false;
   }
+};*/
+
+export const postNuevaTarea = async (nuevaTarea: ITarea) => {
+  try {
+    const resTarea = await axios.post(`${API_URL}/tareas`, nuevaTarea);
+    const tareaCreada = resTarea.data;
+    await axios.post(`${API_URL}/backlog/add-tareas/${tareaCreada._id}`);
+    return true;
+  } catch (error) {
+    console.error("Error al postear nueva tarea:", error);
+    return false;
+  }
 };
 
-export const editarTarea = async (tareaActualizada: ITarea) => {
+
+
+
+/*export const editarTarea = async (tareaActualizada: ITarea) => {
   try {
     const res = await axios.get<{ tareas: ITarea[] }>(`${API_URL}/backlog`);
     const tareasActuales = res.data.tareas || [];
@@ -46,9 +62,20 @@ export const editarTarea = async (tareaActualizada: ITarea) => {
     console.log(error);
     return false;
   }
+};*/
+
+export const editarTarea = async (tareaActualizada: ITarea) => {
+  try {
+    await axios.put(`${API_URL}/tareas/${tareaActualizada.id}`, tareaActualizada);
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
 };
 
-export const eliminarTareaPorId = async (idTarea: string) => {
+
+/*export const eliminarTareaPorId = async (idTarea: string) => {
   try {
     const res = await axios.get<{ tareas: ITarea[] }>(`${API_URL}/backlog`);
     const tareasActuales = res.data.tareas || [];
@@ -61,4 +88,15 @@ export const eliminarTareaPorId = async (idTarea: string) => {
     console.log(error);
     return false;
   }
+};*/
+
+export const eliminarTareaPorId = async (idTarea: string) => {
+  try {
+    await axios.delete(`${API_URL}/tareas/${idTarea}`);
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
 };
+

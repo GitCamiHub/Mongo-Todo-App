@@ -74,7 +74,11 @@ export const ListTareasBacklog = () => {
 
                 </div>
             </div>
-            {openModalTarea && <ModalBacklog handleCloseModal={handleCloseModal} />}
+            {openModalTarea && 
+            <ModalBacklog 
+            handleCloseModal={handleCloseModal}
+            onSave={getTareas} //Agregado ahora
+            />}
         </>
     )
 }

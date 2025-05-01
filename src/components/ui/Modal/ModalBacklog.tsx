@@ -7,6 +7,7 @@ import { useSprints } from "../../../hooks/useSprints";
 
 type IModal = {
     handleCloseModal: VoidFunction;
+    onSave: VoidFunction; //Agregado ahora
 }
 
 const initialState: ITarea = {
@@ -16,7 +17,7 @@ const initialState: ITarea = {
     estado:null
 }
 
-export const ModalBacklog: FC<IModal> = ({ handleCloseModal }) => {
+export const ModalBacklog: FC<IModal> = ({ handleCloseModal, onSave }) => {
     const tareaActiva = tareaStore((state) => state.tareaActiva);
 
     const setTareaActiva = tareaStore((state) => state.setTareaActiva);
@@ -58,7 +59,9 @@ export const ModalBacklog: FC<IModal> = ({ handleCloseModal }) => {
         } else {
             crearTarea({ ...formValues, id: generarId() });
         }
-    
+
+
+     onSave(); //Agregada ahora
         setTareaActiva(null);
         handleCloseModal();
     };

@@ -5,7 +5,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 export const getAllSprints = async () => {
   try {
-    const res = await axios.get<{ sprints: ISprint[] }>(`${API_URL}/sprintList`);
+    const res = await axios.get(`${API_URL}/sprints`);
     return res.data.sprints;
   } catch (error) {
     console.log(error);
@@ -23,6 +23,8 @@ export const postNuevoSprint = async (nuevoSprint: ISprint) => {
     console.log(error);
   }
 };
+
+
 
 export const editarSprint = async (sprintActualizado: ISprint) => {
   try {

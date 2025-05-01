@@ -4,4 +4,5 @@ export interface ITarea{
     descripcion:string
     fechaLimite:string
     estado:string | null
+
 }
