@@ -6,52 +6,24 @@ const API_URL = import.meta.env.VITE_API_URL;
 export const getAllSprints = async () => {
   try {
     const res = await axios.get(`${API_URL}/sprints`);
-    return res.data.sprints;
+    return res.data;
   } catch (error) {
-    console.log(error);
+    console.error("Error al obtener sprints:", error);
+    return [];
   }
 };
 
-/*export const postNuevoSprint = async (nuevoSprint: ISprint) => {
-  try {
-    const res = await axios.get(`${API_URL}/sprintList`);
-    const sprintsActuales = res.data.sprints || [];
-
-    const nuevosSprints = [...sprintsActuales, nuevoSprint];
-    await axios.put(`${API_URL}/sprintList`, { sprints: nuevosSprints });
-  } catch (error) {
-    console.log(error);
-  }
-};*/
 
 export const postNuevoSprint = async (nuevoSprint: ISprint) => {
   try {
     const res = await axios.post(`${API_URL}/sprints`, nuevoSprint);
-    return res.data; // o res.data.sprint si así responde el backend
+    return res.data.sprint; // o res.data.sprint si así responde el backend
   } catch (error) {
     console.error("Error al crear el sprint:", error);
   }
 };
 
 
-
-
-/*export const editarSprint = async (sprintActualizado: ISprint) => {
-  try {
-    const res = await axios.get<{ sprints: ISprint[] }>(`${API_URL}/sprintList`);
-    const sprintsActuales = res.data.sprints || [];
-
-    const nuevosSprints = sprintsActuales.map((sprint) =>
-      sprint.id === sprintActualizado.id ? { ...sprint, ...sprintActualizado } : sprint
-    );
-
-    await axios.put(`${API_URL}/sprintList`, { sprints: nuevosSprints });
-    return true;
-  } catch (error) {
-    console.log(error);
-    return false;
-  }
-};*/
 
 export const editarSprint = async (sprintActualizado: ISprint) => {
   try {
@@ -63,18 +35,13 @@ export const editarSprint = async (sprintActualizado: ISprint) => {
   }
 };
 
-
 export const eliminarSprintPorId = async (idSprint: string) => {
   try {
-    const res = await axios.get<{ sprints: ISprint[] }>(`${API_URL}/sprintList`);
-    const sprintsActuales = res.data.sprints || [];
-
-    const nuevosSprints = sprintsActuales.filter((sprint) => sprint.id !== idSprint);
-
-    await axios.put(`${API_URL}/sprintList`, { sprints: nuevosSprints });
+    await axios.delete(`${API_URL}/sprints/${idSprint}`);
     return true;
   } catch (error) {
-    console.log(error);
+    console.error("Error al eliminar sprint:", error);
     return false;
   }
 };
+

@@ -20,7 +20,7 @@ export const CardListBacklog: FC<ICardList> = ({
 
 
     const eliminarTareaById = () => {
-        eliminarTarea(tarea.id!);
+        eliminarTarea(tarea._id!);
     };
 
     const editarTarea = () => {
@@ -28,7 +28,7 @@ export const CardListBacklog: FC<ICardList> = ({
     };
 
     const verDetalleTarea = () => {  
-        verTarea(tarea.id!);  
+        verTarea(tarea._id!);  
     };
 
 

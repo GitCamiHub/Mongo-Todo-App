@@ -21,9 +21,9 @@ export const ListTareasBacklog = () => {
         if (data) setArrayTareas(data);
     };
 
-    useEffect(() => {
+    /*useEffect(() => {
         getTareas();
-    }, []);
+    }, []); YA LO HACEMOS EN useBacklog*/
 
     const [openModalTarea, setOpenModalTarea] = useState(false);
 
@@ -61,7 +61,7 @@ export const ListTareasBacklog = () => {
         .filter((el) => el.estado === null)
         .map((el) => (
           <CardListBacklog
-            key={el.id}
+            key={el._id}
             handleOpenModalEdit={handleOpenModalEdit}
             tarea={el}
           />

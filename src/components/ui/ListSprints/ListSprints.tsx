@@ -41,7 +41,9 @@ const ListSprints: React.FC = () => {
   };
 
   useEffect(() => {
+    
     getSprints();
+   
   }, []);
 
   return (
@@ -53,8 +55,8 @@ const ListSprints: React.FC = () => {
       {sprints.length > 0 ? (
         sprints.map((sprint: ISprint) => (
           
-          <div key={sprint.id} className="flex flex-col">
-            <Link to={`/sprints/${sprint.id}`}>
+          <div key={sprint._id} className="flex flex-col">
+            <Link to={`/sprints/${sprint._id}`}>
             <CardListSprint
               handleOpenModalEdit={handleOpenModalEdit}
               sprint={sprint}
@@ -77,7 +79,10 @@ const ListSprints: React.FC = () => {
         </button>
       </div>
 
-      {openModalEdit && <ModalSprint handleCloseModal={handleCloseModal} />}
+      {openModalEdit && 
+      <ModalSprint 
+      handleCloseModal={handleCloseModal}
+      />}
     </div>
   );
 };

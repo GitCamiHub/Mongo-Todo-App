@@ -12,7 +12,7 @@ const SprintScreen: React.FC = () => {
 
   useEffect(() => {
     if (id && !sprintActivo) {
-      const sprintEncontrado = sprints.find((sprint) => sprint.id === id);
+      const sprintEncontrado = sprints.find((sprint) => sprint._id === id);
       if (sprintEncontrado) {
         setSprintActivo(sprintEncontrado);
       }

@@ -11,7 +11,7 @@ type IModal = {
 }
 
 const initialState: ITarea = {
-    id: "", 
+    _id: "", 
     titulo: "",
     descripcion: "",
     fechaLimite: "",
@@ -50,7 +50,7 @@ export const ModalBacklog: FC<IModal> = ({ handleCloseModal, onSave }) => {
     
         if (tareaActiva) {
             const sprintActivo = sprintStore.getState().sprintActivo;
-            const perteneceASprint = sprintActivo?.tareas?.some(t => t.id === tareaActiva.id);
+            const perteneceASprint = sprintActivo?.tareas?.some(t => t._id === tareaActiva._id);
     
             if (perteneceASprint) {
                 editarTareaDeSprint(formValues);
@@ -59,7 +59,7 @@ export const ModalBacklog: FC<IModal> = ({ handleCloseModal, onSave }) => {
                 putTareaEditar(formValues); 
             }
         } else {
-            crearTarea({ ...formValues, id: generarId() });
+            crearTarea({ ...formValues, _id: generarId() });
         }
 
 

@@ -38,7 +38,7 @@ export const useTareas = () => {
       await postNuevaTarea(nuevaTarea);
       Swal.fire("Éxito", "Tarea creada correctamente", "success");
     } catch (error) {
-      eliminarUnaTarea(nuevaTarea.id!);
+      eliminarUnaTarea(nuevaTarea._id!);
       console.log("Algo salió mal al crear la tarea");
     }
   };

@@ -3,7 +3,7 @@ import { ISprint } from "../../../types/ISprint";
 import {  Edit, Eye, Trash2 } from "lucide-react";
 import { useSprints } from "../../../hooks/useSprints";
 import { sprintStore } from "../../../store/sprintStore";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 type ICardListSprint = {
   sprint: ISprint;
@@ -19,14 +19,14 @@ export const CardListSprint: FC<ICardListSprint> = ({
   const { eliminarSprint, verSprint} = useSprints();
 
   const eliminarSprintPorId = () => {
-    eliminarSprint(sprint.id!);
+    eliminarSprint(sprint._id!);
   };
   const editarSprint = () => {
     handleOpenModalEdit(sprint);
   };
 
   const verDetalleSprint = () => {
-    verSprint(sprint.id!);
+    verSprint(sprint._id!);
   };
   const sprintActivo = () => {
     handleOpenModal(sprint);

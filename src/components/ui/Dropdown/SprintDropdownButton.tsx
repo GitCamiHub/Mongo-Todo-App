@@ -29,9 +29,9 @@ const SprintDropdownButton: React.FC<Props> = ({ onAssignSprint }) => {
           <ul className="py-1 text-sm text-gray-700">
             {sprints.map((sprint) => (
               <li
-                key={sprint.id}
+                key={sprint._id}
                 className="px-4 py-2 cursor-pointer hover:bg-gray-100"
-                onClick={() => handleSelect(sprint.id!)}
+                onClick={() => handleSelect(sprint._id!)}
               >
                 {sprint.nombre}
               </li>

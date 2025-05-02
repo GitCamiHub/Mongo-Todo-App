@@ -5,6 +5,7 @@ import { ISprint } from "../types/ISprint";
 import Swal from "sweetalert2";
 import { ITarea } from "../types/ITarea";
 
+
 export const useSprints = () => {
   const {
     sprints,
@@ -28,10 +29,18 @@ export const useSprints = () => {
     }))
   );
 
+
   const getSprints = async () => {
-    const data = await getAllSprints();
-    if (data) setArraySprints(data);
+    try {
+      const data = await getAllSprints();
+      if (data) {
+        setArraySprints(data);
+      }
+    } catch (error) {
+      console.error("Error al obtener los sprints", error);
+    }
   };
+
 
   const crearSprint = async (nuevoSprint: ISprint) => {
     agregarNuevoSprint(nuevoSprint);
@@ -39,10 +48,11 @@ export const useSprints = () => {
       await postNuevoSprint(nuevoSprint);
       Swal.fire("Éxito", "Sprint creado correctamente", "success");
     } catch (error) {
-      eliminarUnSprint(nuevoSprint.id!);
+      eliminarUnSprint(nuevoSprint._id!);
       console.log("Algo salió mal al crear el sprint");
     }
   };
+
 
   const editarTareaDeSprint = async (tareaEditada: ITarea) => {
     const { sprintActivo } = sprintStore.getState();
@@ -52,7 +62,7 @@ export const useSprints = () => {
     }
 
     const tareasActualizadas = sprintActivo.tareas?.map((t) =>
-      t.id === tareaEditada.id ? { ...t, ...tareaEditada } : t
+      t._id === tareaEditada._id ? { ...t, ...tareaEditada } : t
     ) || [];
 
     const sprintActualizado = { ...sprintActivo, tareas: tareasActualizadas };
@@ -60,19 +70,19 @@ export const useSprints = () => {
 
     try {
       await putSprintEditar(sprintActualizado);
-    //  Swal.fire("Éxito", "Tarea del sprint actualizada", "success");
+      //  Swal.fire("Éxito", "Tarea del sprint actualizada", "success");
     } catch (error) {
       console.error("Error al actualizar la tarea del sprint");
     }
   };
 
   const putSprintEditar = async (sprintEditado: ISprint) => {
-    const estadoPrevio = sprints.find((el) => el.id === sprintEditado.id);
+    const estadoPrevio = sprints.find((el) => el._id === sprintEditado._id);
     editarUnSprint(sprintEditado);
 
     try {
       await editarSprint(sprintEditado);
-    //  Swal.fire("Éxito", "Sprint actualizado correctamente", "success");
+      //  Swal.fire("Éxito", "Sprint actualizado correctamente", "success");
     } catch (error) {
       if (estadoPrevio) editarUnSprint(estadoPrevio);
       console.log("Algo salió mal al editar el sprint");
@@ -80,7 +90,7 @@ export const useSprints = () => {
   };
 
   const eliminarSprint = async (idSprint: string) => {
-    const estadoPrevio = sprints.find((el) => el.id === idSprint);
+    const estadoPrevio = sprints.find((el) => el._id === idSprint);
 
     const confirm = await Swal.fire({
       title: "¿Estás seguro?",
@@ -107,7 +117,7 @@ export const useSprints = () => {
   const verSprint = (sprintId: string) => {
     const { sprints } = sprintStore.getState();
 
-    const sprint = sprints.find((s) => s.id === sprintId);
+    const sprint = sprints.find((s) => s._id === sprintId);
 
     if (!sprint) {
       Swal.fire({
@@ -154,7 +164,7 @@ export const useSprints = () => {
   const verTareaDeSprint = (idTarea: string) => {
     const sprintActivo = sprintStore.getState().sprintActivo;
 
-    const tarea = sprintActivo?.tareas?.find((t) => t.id === idTarea);
+    const tarea = sprintActivo?.tareas?.find((t) => t._id === idTarea);
 
     if (!tarea) {
       Swal.fire({

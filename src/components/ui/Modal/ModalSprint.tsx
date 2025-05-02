@@ -8,13 +8,14 @@ type IModal = {
 };
 
 const initialState: ISprint = {
+    _id:"",
     nombre: "",
     fechaInicio: "",
     fechaFin: "",
     tareas: [],
 };
 
-export const ModalSprint: FC<IModal> = ({ handleCloseModal }) => {
+export const ModalSprint: FC<IModal> = ({ handleCloseModal}) => {
     const sprintActivo = sprintStore((state) => state.sprintActivo);
     const setSprintActivo = sprintStore((state) => state.setSprintActivo);
     const { crearSprint, putSprintEditar } = useSprints();
@@ -38,7 +39,7 @@ export const ModalSprint: FC<IModal> = ({ handleCloseModal }) => {
     e.preventDefault();
 
     const generarId = (sprints: ISprint[]): number => {
-        const ids = sprints.map((s) => Number(s.id));
+        const ids = sprints.map((s) => Number(s._id));
         const maxId = ids.length > 0 ? Math.max(...ids) : 0;
         return maxId + 1;
     };
@@ -48,9 +49,11 @@ export const ModalSprint: FC<IModal> = ({ handleCloseModal }) => {
     if (sprintActivo) {
         putSprintEditar(formValues);
     } else {
-        crearSprint({ ...formValues, id: generarId(sprints).toString() });
+        crearSprint({ ...formValues, _id: generarId(sprints).toString() });
     }
 
+    
+   
     setSprintActivo(null);
     handleCloseModal();
 };
